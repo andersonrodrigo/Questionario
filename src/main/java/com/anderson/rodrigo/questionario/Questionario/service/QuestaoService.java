@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,9 +21,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anderson.rodrigo.questionario.Questionario.entity.ImageQuestao;
+import com.anderson.rodrigo.questionario.Questionario.entity.Pontuacao;
 import com.anderson.rodrigo.questionario.Questionario.entity.Questao;
+import com.anderson.rodrigo.questionario.Questionario.entity.RespostaUsuario;
+import com.anderson.rodrigo.questionario.Questionario.entity.Usuario;
 import com.anderson.rodrigo.questionario.Questionario.repositorio.ImageQuestaoRepositorio;
 import com.anderson.rodrigo.questionario.Questionario.repositorio.QuestaoRepositorio;
+import com.anderson.rodrigo.questionario.Questionario.repositorio.RespostaUsuarioRepositorio;
 
 @Service
 public class QuestaoService {
@@ -32,6 +37,9 @@ public class QuestaoService {
 
     @Autowired
     ImageQuestaoRepositorio imageQuestaoRepositorio;
+
+	@Autowired
+	RespostaUsuarioRepositorio respostaUsuarioRepositorio;
 
     @PersistenceContext
     private EntityManager em;
@@ -134,5 +142,42 @@ public class QuestaoService {
         return imageQuestaoRepositorio.save(imageQuestao);
 
     }
+
+	/**
+	 * 
+	 * @param respostaUsuario
+	 * @return
+	 */
+	public Questao salvaResposta(final RespostaUsuario respostaUsuario) {
+		respostaUsuarioRepositorio.save(respostaUsuario);
+		final List<Questao> listasQuestoes = questaoRepositorio.findAll();
+		int cont = 0;
+		Questao questaoSelecionada = null;
+		while (questaoSelecionada == null) {
+			final Random gerador = new Random();
+			questaoSelecionada = listasQuestoes.get(gerador.nextInt(listasQuestoes.size()));
+			if (cont > 5) {
+				break;
+			}
+			cont++;
+			if (questaoSelecionada.getId().intValue() == respostaUsuario.getUsuario().getId().intValue()) {
+				questaoSelecionada = null;
+			}
+		}
+		return questaoSelecionada;
+
+	}
+
+	/**
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+	public Pontuacao pontuacaoUsuario(final Usuario usuario) {
+		final Pontuacao pontuacao = new Pontuacao();
+		pontuacao.setCertas(questaoRepositorio.quantidadeCertas(usuario.getId()));
+		pontuacao.setErradas(questaoRepositorio.quantidadeErradas(usuario.getId()));
+		return pontuacao;
+	}
 
 }

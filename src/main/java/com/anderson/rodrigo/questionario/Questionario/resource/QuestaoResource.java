@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anderson.rodrigo.questionario.Questionario.entity.ImageQuestao;
+import com.anderson.rodrigo.questionario.Questionario.entity.Pontuacao;
 import com.anderson.rodrigo.questionario.Questionario.entity.Questao;
+import com.anderson.rodrigo.questionario.Questionario.entity.RespostaUsuario;
+import com.anderson.rodrigo.questionario.Questionario.entity.Usuario;
 import com.anderson.rodrigo.questionario.Questionario.service.QuestaoService;
 
 @RestController
@@ -65,5 +68,16 @@ public class QuestaoResource {
         return questaoService.findAll();
     }
 
+	@Transactional
+	@RequestMapping(method = RequestMethod.POST, path = "/respostaUsuario")
+	public Questao respostaUsuario(@RequestBody final RespostaUsuario respostaUsuario) {
+		return questaoService.salvaResposta(respostaUsuario);
+	}
+
+	@Transactional
+	@RequestMapping(method = RequestMethod.POST, path = "/pontuacao")
+	public Pontuacao respostaUsuario(@RequestBody final Usuario usuario) {
+		return questaoService.pontuacaoUsuario(usuario);
+	}
 
 }

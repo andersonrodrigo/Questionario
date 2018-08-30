@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,7 @@ public class AuthResource {
 			retorno = new HashMap<String, Object>();
 			retorno.put("userName", usuario.getNome());
 			retorno.put("login", usuario.getLogin());
+			retorno.put("id", usuario.getId());
 		}
 		return retorno;
 
@@ -97,12 +99,11 @@ public class AuthResource {
 	}
 
 	@RequestMapping(path = "/salvarUsuario", method = RequestMethod.POST)
-	public ResponseEntity<String> salvarUsuario(final HttpServletRequest request, final HttpServletResponse response,
-			final String login, final String senha) {
+	public ResponseEntity<String> salvarUsuario(@RequestBody final Usuario usuario) {
 		try {
-			final Usuario usuario = usuarioService.recuperaUsuarioByLogin(login);
-			if (usuario == null) {
-				usuarioService.salvarUsuario(login, senha);
+			final Usuario usuarioExistente = usuarioService.recuperaUsuarioByLogin(usuario.getLogin());
+			if (usuarioExistente == null) {
+				usuarioService.salvarUsuario(usuario.getLogin(), usuario.getSenha());
 			} else {
 				return new ResponseEntity<String>("Já existe Login cadastrado!", HttpStatus.OK);
 			}
