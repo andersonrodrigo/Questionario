@@ -86,7 +86,27 @@
 		</dependency>
 		
 	</dependencies>
+<profiles>
+  <profile>
+    <id>desenv</id>
+    <properties>
+      <activatedProperties>desenv</activatedProperties>
+    </properties>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+  </profile>
+    
+   
+      
+  <profile>
+        <id>prod</id>
+        <properties>
+          <activatedProperties>prod</activatedProperties>
+        </properties>
+     </profile>
 
+  </profiles>
 	<build>
 	  <finalName>ws-questionario</finalName>
 		<plugins>
