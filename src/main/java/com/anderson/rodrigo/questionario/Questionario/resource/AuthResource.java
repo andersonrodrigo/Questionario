@@ -103,7 +103,7 @@ public class AuthResource {
 		try {
 			final Usuario usuarioExistente = usuarioService.recuperaUsuarioByLogin(usuario.getLogin());
 			if (usuarioExistente == null) {
-				usuarioService.salvarUsuario(usuario.getLogin(), usuario.getSenha());
+				usuarioService.salvarUsuario(usuario.getLogin(), usuario.getSenha(), usuario.getNome());
 			} else {
 				return new ResponseEntity<String>("Já existe Login cadastrado!", HttpStatus.OK);
 			}

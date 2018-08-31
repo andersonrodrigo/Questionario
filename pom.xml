@@ -6,7 +6,7 @@
 	<groupId>com.anderson.rodrigo.questionario</groupId>
 	<artifactId>Questionario</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	 <packaging>war</packaging>
 
 	<name>Questionario</name>
 	<description>Demo project for Spring Boot</description>
@@ -78,10 +78,17 @@
       <artifactId>jjwt</artifactId>
       <version>0.7.0</version>
     </dependency>
+    
+    <dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1206-jdbc42</version>
+		</dependency>
 		
 	</dependencies>
 
 	<build>
+	  <finalName>ws-questionario</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

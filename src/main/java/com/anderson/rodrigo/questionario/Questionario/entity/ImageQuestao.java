@@ -3,14 +3,15 @@ package com.anderson.rodrigo.questionario.Questionario.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class ImageQuestao {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SQ_IMAGEM_QUESTAO")
     private Long id;
 
     @Lob

@@ -4,13 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Modulo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SQ_MODULO")
     private Long id;
 
     @Column

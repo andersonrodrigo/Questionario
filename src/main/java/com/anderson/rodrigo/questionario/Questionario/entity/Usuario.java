@@ -4,17 +4,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Usuario.recuperaUsuarioByLogin", query = "SELECT p FROM Usuario p WHERE p.login  = :login ") })
 public class Usuario {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SQ_USUARIO")
 	private Long id;
 
 	@Column

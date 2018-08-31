@@ -4,15 +4,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 
 public class RespostaUsuario {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SQ_RESPOSTA_USUARIO")
 	private Long id;
 
 	@Column

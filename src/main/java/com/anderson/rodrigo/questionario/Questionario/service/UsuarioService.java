@@ -32,10 +32,11 @@ public class UsuarioService {
 	 * @param login
 	 * @param senha
 	 */
-	public void salvarUsuario(final String login, final String senha) {
+	public void salvarUsuario(final String login, final String senha, final String nome) {
 		final Usuario usuario = new Usuario();
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
+		usuario.setNome(nome);
 		usuarioRepositorio.save(usuario);
 	}
 

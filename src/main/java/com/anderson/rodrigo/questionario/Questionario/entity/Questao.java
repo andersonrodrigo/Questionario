@@ -4,18 +4,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @NamedQueries({ @NamedQuery(
         name = "Questao.getQuestaoByModulo",
         query = "SELECT p FROM Questao p WHERE p.modulo.id = :idModulo") })
 public class Questao {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@javax.persistence.Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "SQ_QUESTAO")
     private Long id;
 
     @ManyToOne
