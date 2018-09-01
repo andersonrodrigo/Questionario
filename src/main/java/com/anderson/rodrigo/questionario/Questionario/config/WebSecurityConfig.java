@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/api/auth/token").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/auth/salvarUsuario").permitAll()
 				.antMatchers("/api/**").authenticated().and()
 			.addFilterBefore(new WebSecurityCorsFilter(), ChannelProcessingFilter.class)

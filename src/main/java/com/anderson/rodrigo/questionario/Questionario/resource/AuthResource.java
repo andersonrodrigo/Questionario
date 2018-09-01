@@ -3,9 +3,6 @@ package com.anderson.rodrigo.questionario.Questionario.resource;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,10 +29,11 @@ public class AuthResource {
 	private UsuarioService usuarioService;
 	
 	@RequestMapping(path="/token", method={RequestMethod.POST})
-	public ResponseEntity<String> getToken(final HttpServletRequest request, final HttpServletResponse response,final String username, final String password){
+	public ResponseEntity<String> getToken(@RequestBody final Map<String, Object> params) {
 		System.out.println("==================================");
 		try {
-			
+			final String username = params.get("username").toString();
+			final String password = params.get("password").toString();
 			final Map<String, Object> user = autenticaUsuario(username, password);
 			if (user == null){
 			  throw new Exception("Acesso negado!");
