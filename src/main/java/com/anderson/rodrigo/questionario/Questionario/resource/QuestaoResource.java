@@ -62,6 +62,18 @@ public class QuestaoResource {
         return questaoService.getQuestaoByModulo(id);
     }
 
+	@Transactional
+	@RequestMapping(method = RequestMethod.GET, path = "/deleteQuestao/{id}")
+	public boolean deleteQuestao(@PathVariable("id") final Long id) {
+		return questaoService.deleteQuestao(id);
+	}
+
+	@Transactional
+	@RequestMapping(method = RequestMethod.GET, path = "/getProximaQuestaoByModulo/{id}")
+	public Questao getProximaQuestaoByModulo(@PathVariable("id") final Long id) {
+		return questaoService.getProximaQuestaoByModulo(id);
+	}
+
     @Transactional
     @RequestMapping(method = RequestMethod.GET, path = "/getAllQuestoes")
     public List<Questao> getAllModulos() {

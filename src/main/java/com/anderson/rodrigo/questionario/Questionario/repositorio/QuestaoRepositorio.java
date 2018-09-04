@@ -18,4 +18,5 @@ public interface QuestaoRepositorio extends JpaRepository<Questao, Long> {
 	@Query(nativeQuery = true, value = "SELECT  COUNT(1) FROM RESPOSTA_USUARIO WHERE USUARIO_ID = :idUsuario and resposta <> resposta_certa ")
 	Long quantidadeErradas(@Param("idUsuario") Long idUsuarioo);
 
+
 }

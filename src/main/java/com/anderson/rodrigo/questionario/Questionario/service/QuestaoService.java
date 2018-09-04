@@ -92,6 +92,26 @@ public class QuestaoService {
         return questaoRepositorio.getQuestaoByModulo(idModulo);
     }
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Questao getProximaQuestaoByModulo(final Long idModulo) {
+		final List<Questao> listaQuestao = questaoRepositorio.getQuestaoByModulo(idModulo);
+		if (!listaQuestao.isEmpty()) {
+			if (listaQuestao.size() == 1) {
+				return listaQuestao.get(0);
+			} else {
+				final Random gerador = new Random();
+				return listaQuestao.get(gerador.nextInt((listaQuestao.size() - 1)));
+			}
+		} else {
+			return null;
+		}
+
+	}
+
     /**
      * 
      * @return
@@ -178,6 +198,16 @@ public class QuestaoService {
 		pontuacao.setCertas(questaoRepositorio.quantidadeCertas(usuario.getId()));
 		pontuacao.setErradas(questaoRepositorio.quantidadeErradas(usuario.getId()));
 		return pontuacao;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean deleteQuestao(final Long id) {
+		questaoRepositorio.deleteById(id);
+		return true;
 	}
 
 }
