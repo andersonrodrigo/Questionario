@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 @Entity
 
@@ -27,6 +28,9 @@ public class RespostaUsuario {
 
 	@ManyToOne
 	private Questao questao;
+
+	@Transient
+	private Long idModulo;
 
 	public Long getId() {
 		return id;
@@ -66,6 +70,14 @@ public class RespostaUsuario {
 
 	public void setQuestao(final Questao questao) {
 		this.questao = questao;
+	}
+
+	public Long getIdModulo() {
+		return idModulo;
+	}
+
+	public void setIdModulo(final Long idModulo) {
+		this.idModulo = idModulo;
 	}
 
 }

@@ -170,7 +170,7 @@ public class QuestaoService {
 	 */
 	public Questao salvaResposta(final RespostaUsuario respostaUsuario) {
 		respostaUsuarioRepositorio.save(respostaUsuario);
-		final List<Questao> listasQuestoes = questaoRepositorio.findAll();
+		final List<Questao> listasQuestoes = questaoRepositorio.getQuestaoByModulo(respostaUsuario.getIdModulo());
 		int cont = 0;
 		Questao questaoSelecionada = null;
 		while (questaoSelecionada == null) {
@@ -180,7 +180,7 @@ public class QuestaoService {
 				break;
 			}
 			cont++;
-			if (questaoSelecionada.getId().intValue() == respostaUsuario.getUsuario().getId().intValue()) {
+			if (questaoSelecionada.getId().intValue() == respostaUsuario.getQuestao().getId().intValue()) {
 				questaoSelecionada = null;
 			}
 		}
