@@ -170,17 +170,25 @@ public class QuestaoService {
 	 */
 	public Questao salvaResposta(final RespostaUsuario respostaUsuario) {
 		respostaUsuarioRepositorio.save(respostaUsuario);
+		System.out.println("Modulo que chegoiu" + respostaUsuario.getIdModulo());
 		final List<Questao> listasQuestoes = questaoRepositorio.getQuestaoByModulo(respostaUsuario.getIdModulo());
+		System.out.println("achou :" + listasQuestoes.size());
 		int cont = 0;
 		Questao questaoSelecionada = null;
+		int indice = 0;
 		while (questaoSelecionada == null) {
 			final Random gerador = new Random();
-			questaoSelecionada = listasQuestoes.get(gerador.nextInt(listasQuestoes.size()));
+			indice = gerador.nextInt(listasQuestoes.size() - 1);
+			System.out.println(indice);
+			if (indice > 0) {
+				questaoSelecionada = listasQuestoes.get(indice);
+			}
 			if (cont > 5) {
 				break;
 			}
 			cont++;
-			if (questaoSelecionada.getId().intValue() == respostaUsuario.getQuestao().getId().intValue()) {
+			if (questaoSelecionada != null
+					&& questaoSelecionada.getId().intValue() == respostaUsuario.getQuestao().getId().intValue()) {
 				questaoSelecionada = null;
 			}
 		}
